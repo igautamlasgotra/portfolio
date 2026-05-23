@@ -926,9 +926,10 @@ section {
 .skills-header .section-subtitle { margin: 0 auto; text-align: center; }
 
 .skills-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 12px;
+  justify-content: center;
 }
 
 .skill-chip {
@@ -937,6 +938,7 @@ section {
   align-items: center;
   gap: 10px;
   padding: 22px 16px;
+  width: 130px;
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
@@ -1456,7 +1458,6 @@ footer {
   .hero-title { font-size: 2.4rem; }
   .hero-actions { gap: 12px; }
   .btn { padding: 12px 22px; font-size: 0.875rem; }
-  .skills-grid { grid-template-columns: repeat(3, 1fr); }
 
   .nav-mobile-link { font-size: 1.2rem; padding: 16px 20px; }
 }
