@@ -92,20 +92,55 @@ window.addEventListener('scroll', () => {
 }, { passive: true });
 
 // ─── Mobile Menu ─────────────────────────────────────────────
-const hamburger    = document.querySelector('.nav-hamburger');
-const mobileMenu   = document.querySelector('.nav-mobile-menu');
-const mobileLinks  = document.querySelectorAll('.nav-mobile-link');
+const hamburger   = document.querySelector('.nav-hamburger');
+const mobileMenu  = document.querySelector('.nav-mobile-menu');
+const mobileLinks = document.querySelectorAll('.nav-mobile-link');
+
+// Stagger delays for links entering
+const STAGGER_DELAYS = [0.08, 0.14, 0.20, 0.26, 0.32, 0.42];
+
+function openMobileMenu() {
+  hamburger.classList.add('open');
+  hamburger.setAttribute('aria-expanded', 'true');
+  mobileMenu.classList.add('open');
+  mobileMenu.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden'; // prevent scroll behind overlay
+
+  // Stagger each link in
+  mobileLinks.forEach((link, i) => {
+    link.style.transitionDelay = STAGGER_DELAYS[i] + 's';
+  });
+}
+
+function closeMobileMenu() {
+  hamburger.classList.remove('open');
+  hamburger.setAttribute('aria-expanded', 'false');
+  mobileMenu.classList.remove('open');
+  mobileMenu.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+
+  // Reset stagger so next open animates correctly
+  mobileLinks.forEach(link => { link.style.transitionDelay = '0s'; });
+}
 
 hamburger?.addEventListener('click', () => {
-  hamburger.classList.toggle('open');
-  mobileMenu.classList.toggle('open');
+  if (hamburger.classList.contains('open')) {
+    closeMobileMenu();
+  } else {
+    openMobileMenu();
+  }
 });
+
+// Close on link click
 mobileLinks.forEach(link => {
-  link.addEventListener('click', () => {
-    hamburger.classList.remove('open');
-    mobileMenu.classList.remove('open');
-  });
+  link.addEventListener('click', () => closeMobileMenu());
 });
+
+// Close on escape key
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && hamburger.classList.contains('open')) closeMobileMenu();
+});
+
 
 // ─── Scroll-Triggered Reveal ──────────────────────────────────
 const revealObserver = new IntersectionObserver((entries) => {

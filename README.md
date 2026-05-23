@@ -6,15 +6,16 @@ A premium, Apple-inspired developer portfolio with interactive animations, custo
 
 ## ✨ Features
 
-- **Custom Glowing Cursor** — dual-ring cursor with magnetic effect on buttons
+- **Custom Glowing Cursor** — dual-ring cursor with magnetic effect on buttons *(desktop)*
+- **Apple-style Mobile Menu** — glassmorphism icon button with animated three-line → X transition; full-screen overlay with staggered link entrance
 - **Scroll-triggered Animations** — elements elegantly fade/slide in as you scroll
 - **3D Tilt Cards** — project cards tilt with mouse movement using perspective transforms
 - **Parallax Hero** — layered parallax depth on the hero section
-- **Glassmorphism UI** — frosted glass cards and floating elements
+- **Glassmorphism UI** — frosted glass cards, navbar, and floating elements
 - **Animated Counters** — stat numbers animate when scrolled into view
-- **Floating Particles** — subtle ambient particles in the hero
+- **Floating Particles** — ambient purple/blue particles in the hero
 - **Scroll Progress Bar** — thin gradient bar tracks reading progress
-- **Responsive** — fully optimized for desktop, tablet, and mobile
+- **Responsive** — fully optimized for desktop, tablet, and mobile (tested on iPhone 15 Safari)
 
 ## 🛠️ Tech Stack
 

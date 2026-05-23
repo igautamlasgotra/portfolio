@@ -47,19 +47,21 @@
     </a>
 
     <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu" aria-expanded="false">
-      <span></span><span></span><span></span>
+      <div class="ham-box" aria-hidden="true">
+        <span></span><span></span><span></span>
+      </div>
     </button>
   </nav>
 
-  <!-- Mobile Menu -->
-  <div class="nav-mobile-menu" id="navMobileMenu" aria-hidden="true">
+  <!-- Mobile Overlay Menu -->
+  <nav class="nav-mobile-menu" id="navMobileMenu" aria-label="Mobile navigation" aria-hidden="true">
     <a href="#about"      class="nav-mobile-link" id="mob-about">About</a>
     <a href="#skills"     class="nav-mobile-link" id="mob-skills">Skills</a>
     <a href="#projects"   class="nav-mobile-link" id="mob-projects">Projects</a>
     <a href="#experience" class="nav-mobile-link" id="mob-experience">Experience</a>
     <a href="#contact"    class="nav-mobile-link" id="mob-contact">Contact</a>
-    <a href="Resume_Gautam.pdf" target="_blank" rel="noopener" class="nav-mobile-link" id="mob-resume">Resume ↗</a>
-  </div>
+    <a href="Resume_Gautam.pdf" target="_blank" rel="noopener" class="nav-mobile-link nav-mobile-resume" id="mob-resume">Resume ↗</a>
+  </nav>
 
   <main>
 
