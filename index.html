@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Gautam Lasgotra — Computer Science student & Full Stack Developer crafting immersive digital experiences with code, creativity, and clean design." />
+  <meta name="keywords" content="Gautam Lasgotra, portfolio, full stack developer, React, Flutter, MERN, web developer" />
+  <meta name="author" content="Gautam Lasgotra" />
+  <meta property="og:title" content="Gautam Lasgotra — Developer Portfolio" />
+  <meta property="og:description" content="Crafting immersive digital experiences with code, creativity, and clean design." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Gautam Lasgotra — Developer Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- Scroll Progress Bar -->
+  <div class="nav-progress" id="navProgress" aria-hidden="true"></div>
+
+  <!-- Custom Cursor -->
+  <div id="cursor-dot"  aria-hidden="true"></div>
+  <div id="cursor-ring" aria-hidden="true"></div>
+
+  <!-- Ambient Orbs -->
+  <div class="ambient-orb ambient-orb-1" aria-hidden="true"></div>
+  <div class="ambient-orb ambient-orb-2" aria-hidden="true"></div>
+  <div class="ambient-orb ambient-orb-3" aria-hidden="true"></div>
+
+  <!-- ─── NAVBAR ──────────────────────────────────────────────── -->
+  <nav id="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-logo">GL<span>.</span></div>
+
+    <ul class="nav-links">
+      <li><a href="#about"      class="nav-link" id="nav-about">About</a></li>
+      <li><a href="#skills"     class="nav-link" id="nav-skills">Skills</a></li>
+      <li><a href="#projects"   class="nav-link" id="nav-projects">Projects</a></li>
+      <li><a href="#experience" class="nav-link" id="nav-experience">Experience</a></li>
+      <li><a href="#contact"    class="nav-link" id="nav-contact">Contact</a></li>
+    </ul>
+
+    <a href="Resume_Gautam.pdf" target="_blank" rel="noopener" class="nav-cta magnetic-btn" id="nav-resume-btn">
+      Resume ↗
+    </a>
+
+    <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="nav-mobile-menu" id="navMobileMenu" aria-hidden="true">
+    <a href="#about"      class="nav-mobile-link" id="mob-about">About</a>
+    <a href="#skills"     class="nav-mobile-link" id="mob-skills">Skills</a>
+    <a href="#projects"   class="nav-mobile-link" id="mob-projects">Projects</a>
+    <a href="#experience" class="nav-mobile-link" id="mob-experience">Experience</a>
+    <a href="#contact"    class="nav-mobile-link" id="mob-contact">Contact</a>
+    <a href="Resume_Gautam.pdf" target="_blank" rel="noopener" class="nav-mobile-link" id="mob-resume">Resume ↗</a>
+  </div>
+
+  <main>
+
+    <!-- ─── HERO ─────────────────────────────────────────────── -->
+    <section id="hero" aria-label="Hero">
+      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="hero-grid" aria-hidden="true"></div>
+      <div class="particles-container" aria-hidden="true"></div>
+
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="hero-badge-dot" aria-hidden="true"></span>
+          Available for Internships &amp; Opportunities
+        </div>
+
+        <h1 class="hero-title">
+          <span style="font-weight:300; font-size:0.65em; letter-spacing:-0.01em; color: rgba(245,245,247,0.55); display:block; margin-bottom:4px;">Hi, I'm</span>
+          <span class="name-gradient">Gautam Lasgotra</span>
+        </h1>
+
+        <p class="hero-tagline" data-text="Crafting immersive digital experiences with code, creativity, and clean design.">
+          Crafting immersive digital experiences with code, creativity, and clean design.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-primary magnetic-btn" id="hero-view-work-btn">
+            View My Work
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 8h10M9 4l4 4-4 4"/>
+            </svg>
+          </a>
+          <a href="#contact" class="btn btn-secondary magnetic-btn" id="hero-contact-btn">
+            Get In Touch
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-scroll-hint" aria-label="Scroll down">
+        <div class="scroll-mouse" aria-hidden="true"></div>
+        <span>Scroll</span>
+      </div>
+    </section>
+
+    <!-- ─── ABOUT ─────────────────────────────────────────────── -->
+    <section id="about" aria-label="About me">
+      <div class="section-container">
+        <div class="about-grid">
+
+          <!-- Left: Image + Stats -->
+          <div class="about-image-wrapper reveal-left">
+            <div class="about-image-frame">
+              <img
+                src="assets/profile.png"
+                alt="Gautam Lasgotra — Full Stack Developer"
+                class="about-avatar"
+                id="profile-img"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+              />
+              <!-- Fallback avatar -->
+              <div class="avatar-fallback" style="display:none; width:100%; height:100%; background: linear-gradient(135deg, rgba(124,58,237,0.15), rgba(37,99,235,0.1)); border-radius:38px; align-items:center; justify-content:center; font-size:5rem;">
+                👨‍💻
+              </div>
+            </div>
+
+            <div class="about-stats">
+              <div class="stat-card">
+                <div class="stat-number" data-target="2" data-suffix="+" aria-label="2 internships">2+</div>
+                <div class="stat-label">Internships</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-number" data-target="5" data-suffix="+" aria-label="5 projects">5+</div>
+                <div class="stat-label">Projects Built</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-number" data-target="17" data-suffix="+" aria-label="17 technologies">17+</div>
+                <div class="stat-label">Technologies</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-number" data-target="2" data-suffix=" yrs" aria-label="2 years experience">2 yrs</div>
+                <div class="stat-label">Experience</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Text -->
+          <div class="about-text">
+            <div class="reveal delay-1">
+              <div class="section-eyebrow">About Me</div>
+            </div>
+            <h2 class="section-title reveal delay-2">
+              Building things that<br/>
+              <span class="gradient-text">people love to use</span>
+            </h2>
+            <p class="section-subtitle reveal delay-3">
+              Computer Science student at Shri Mata Vaishno Devi University, passionate about full stack development, modern UI/UX, and building impactful digital products.
+            </p>
+            <p class="section-subtitle reveal delay-4" style="margin-top:16px;">
+              I enjoy creating smooth, interactive experiences inspired by Apple-like design aesthetics while constantly exploring new technologies and pushing what's possible on the web.
+            </p>
+
+            <div class="about-tags reveal delay-5">
+              <span class="about-tag">⚡ Full Stack Dev</span>
+              <span class="about-tag">🎨 UI/UX Enthusiast</span>
+              <span class="about-tag">📱 Mobile Apps</span>
+              <span class="about-tag">🔐 Ethical Hacking</span>
+              <span class="about-tag">🚀 SMVDU, CSE 2027</span>
+            </div>
+
+            <div class="hero-actions" style="justify-content:flex-start; margin-top:36px;">
+              <a href="Resume_Gautam.pdf" target="_blank" rel="noopener" class="btn btn-primary magnetic-btn" id="about-resume-btn">
+                Download Resume
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M8 3v8M4 7l4 4 4-4M3 13h10"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── SKILLS ────────────────────────────────────────────── -->
+    <section id="skills" aria-label="Technical skills">
+      <div class="section-container">
+        <div class="skills-header">
+          <div class="section-eyebrow reveal">Tech Stack</div>
+          <h2 class="section-title reveal delay-1">My <span class="gradient-text">Toolkit</span></h2>
+          <p class="section-subtitle reveal delay-2">
+            Technologies I work with to craft great digital experiences, from frontend to backend, mobile to databases.
+          </p>
+        </div>
+
+        <div class="skills-grid" aria-label="Skills list">
+          <!-- Frontend -->
+          <div class="skill-chip reveal" style="transition-delay:0.05s">
+            <span class="skill-icon" role="img" aria-label="JavaScript">🟨</span>
+            <span class="skill-name">JavaScript</span>
+          </div>
+          <div class="skill-chip reveal" style="transition-delay:0.08s">
+            <span class="skill-icon" role="img" aria-label="React">⚛️</span>
+            <span class="skill-name">React</span>
+          </div>
+          <div class="skill-chip reveal" style="transition-delay:0.11s">
+            <span class="skill-icon" role="img" aria-label="HTML">🌐</span>
+            <span class="skill-name">HTML5</span>
+          </div>
+          <div class="skill-chip reveal" style="transition-delay:0.14s">
+            <span class="skill-icon" role="img" aria-label="CSS">🎨</span>
+            <span class="skill-name">CSS3</span>
+          </div>
+          <div class="skill-chip reveal" style="transition-delay:0.17s">
+            <span class="skill-icon" role="img" aria-label="Bootstrap">💠</span>
+            <span class="skill-name">Bootstrap</span>
+          </div>
+          <!-- Backend -->
+          <div class="skill-chip reveal" style="transition-delay:0.20s">
+            <span class="skill-icon" role="img" aria-label="Node.js">🟢</span>
+            <span class="skill-name">Node.js</span>
+          </div>
+          <div class="skill-chip reveal" style="transition-delay:0.23s">
+            <span class="skill-icon" role="img" aria-label="Express.js">🚂</span>
+            <span class="skill-name">Express.js</span>
+          </div>
+          <div class="skill-chip reveal" style="transition-delay:0.26s">
+            <span class="skill-icon" role="img" aria-label="Python">🐍</span>
+            <span class="skill-name">Python</span>
+          </div>
+          <div class="skill-chip reveal" style="transition-delay:0.29s">
+            <span class="skill-icon" role="img" aria-label="C">⚙️</span>
+            <span class="skill-name">C</span>
+          </div>
+          <!-- Databases -->
+          <div class="skill-chip reveal" style="transition-delay:0.32s">
+            <span class="skill-icon" role="img" aria-label="MongoDB">🍃</span>
+            <span class="skill-name">MongoDB</span>
+          </div>
+          <div class="skill-chip reveal" style="transition-delay:0.35s">
+            <span class="skill-icon" role="img" aria-label="MySQL">🐬</span>
+            <span class="skill-name">MySQL</span>
+          </div>
+          <div class="skill-chip reveal" style="transition-delay:0.38s">
+            <span class="skill-icon" role="img" aria-label="Firebase">🔥</span>
+            <span class="skill-name">Firebase</span>
+          </div>
+          <!-- Mobile -->
+          <div class="skill-chip reveal" style="transition-delay:0.41s">
+            <span class="skill-icon" role="img" aria-label="Flutter">💙</span>
+            <span class="skill-name">Flutter</span>
+          </div>
+          <div class="skill-chip reveal" style="transition-delay:0.44s">
+            <span class="skill-icon" role="img" aria-label="Dart">🎯</span>
+            <span class="skill-name">Dart</span>
+          </div>
+          <!-- Tools -->
+          <div class="skill-chip reveal" style="transition-delay:0.47s">
+            <span class="skill-icon" role="img" aria-label="Git">🐙</span>
+            <span class="skill-name">Git</span>
+          </div>
+          <div class="skill-chip reveal" style="transition-delay:0.50s">
+            <span class="skill-icon" role="img" aria-label="Postman">📮</span>
+            <span class="skill-name">Postman</span>
+          </div>
+          <div class="skill-chip reveal" style="transition-delay:0.53s">
+            <span class="skill-icon" role="img" aria-label="Android Studio">🤖</span>
+            <span class="skill-name">Android Studio</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── PROJECTS ──────────────────────────────────────────── -->
+    <section id="projects" aria-label="Projects">
+      <div class="section-container">
+        <div class="projects-header">
+          <div class="section-eyebrow reveal">Featured Work</div>
+          <h2 class="section-title reveal delay-1">Things I've <span class="gradient-text">Built</span></h2>
+          <p class="section-subtitle reveal delay-2">
+            A selection of my best projects — from mobile apps to full-stack web platforms.
+          </p>
+        </div>
+
+        <div class="projects-grid">
+
+          <!-- Project 1: Shramik -->
+          <article class="project-card reveal delay-1" aria-label="Shramik project">
+            <div class="project-number">01 — Mobile App</div>
+            <div class="project-icon" aria-hidden="true">🔧</div>
+            <h3 class="project-title">Shramik</h3>
+            <p class="project-desc">
+              A role-based local service marketplace connecting customers and workers with real-time workflows, authentication, live job tracking, and payment verification — built for India's gig economy.
+            </p>
+            <div class="project-tech" aria-label="Technologies used">
+              <span class="tech-tag">Flutter</span>
+              <span class="tech-tag">Firebase</span>
+              <span class="tech-tag">Dart</span>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/igautamlasgotra" target="_blank" rel="noopener" class="project-link" id="shramik-github-link" aria-label="View Shramik on GitHub">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.1.83-.26.83-.58v-2c-3.33.72-4.03-1.6-4.03-1.6-.55-1.38-1.33-1.75-1.33-1.75-1.08-.74.08-.72.08-.72 1.2.08 1.83 1.23 1.83 1.23 1.06 1.82 2.8 1.3 3.48.99.1-.77.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.3.46-2.38 1.23-3.22-.12-.3-.53-1.52.12-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 013-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.3-1.23 3.3-1.23.65 1.66.24 2.88.12 3.18.76.84 1.23 1.92 1.23 3.22 0 4.61-2.8 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.3c0 .32.22.69.83.57C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/>
+                </svg>
+                GitHub
+              </a>
+              <a href="#" class="project-link" id="shramik-live-link" aria-label="View Shramik live (coming soon)">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M3 8h10M9 4l4 4-4 4"/>
+                </svg>
+                Coming Soon
+              </a>
+            </div>
+          </article>
+
+          <!-- Project 2: CampusCrate -->
+          <article class="project-card reveal delay-2" aria-label="CampusCrate project">
+            <div class="project-number">02 — Web Platform</div>
+            <div class="project-icon" aria-hidden="true">🎒</div>
+            <h3 class="project-title">CampusCrate</h3>
+            <p class="project-desc">
+              A MERN-based campus Lost &amp; Found platform with secure authentication, full item management system, role-based access control for students and admins, and a clean responsive dashboard.
+            </p>
+            <div class="project-tech" aria-label="Technologies used">
+              <span class="tech-tag">MongoDB</span>
+              <span class="tech-tag">Express.js</span>
+              <span class="tech-tag">React</span>
+              <span class="tech-tag">Node.js</span>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/igautamlasgotra" target="_blank" rel="noopener" class="project-link" id="campuscrate-github-link" aria-label="View CampusCrate on GitHub">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.1.83-.26.83-.58v-2c-3.33.72-4.03-1.6-4.03-1.6-.55-1.38-1.33-1.75-1.33-1.75-1.08-.74.08-.72.08-.72 1.2.08 1.83 1.23 1.83 1.23 1.06 1.82 2.8 1.3 3.48.99.1-.77.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.3.46-2.38 1.23-3.22-.12-.3-.53-1.52.12-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 013-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.3-1.23 3.3-1.23.65 1.66.24 2.88.12 3.18.76.84 1.23 1.92 1.23 3.22 0 4.61-2.8 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.3c0 .32.22.69.83.57C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/>
+                </svg>
+                GitHub
+              </a>
+              <a href="#" class="project-link" id="campuscrate-live-link" aria-label="View CampusCrate live (coming soon)">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M3 8h10M9 4l4 4-4 4"/>
+                </svg>
+                Coming Soon
+              </a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── EXPERIENCE & EDUCATION ────────────────────────────── -->
+    <section id="experience" aria-label="Experience and Education">
+      <div class="section-container">
+        <div class="experience-header">
+          <div class="section-eyebrow reveal">Journey</div>
+          <h2 class="section-title reveal delay-1">Experience &amp; <span class="gradient-text">Education</span></h2>
+          <p class="section-subtitle reveal delay-2">
+            My professional journey — internships, research, and academic milestones.
+          </p>
+        </div>
+
+        <!-- Experience -->
+        <div style="margin-bottom: 60px;">
+          <h3 style="font-size:0.8rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-tertiary); margin-bottom:28px; padding-left:32px;" class="reveal">
+            Work Experience
+          </h3>
+
+          <div class="timeline">
+            <div class="timeline-item reveal delay-1">
+              <div class="timeline-dot" aria-hidden="true"></div>
+              <div class="timeline-card">
+                <div class="timeline-meta">
+                  <div>
+                    <div class="timeline-role">Full Stack Web Developer Intern</div>
+                    <div class="timeline-company">IIT Jammu</div>
+                  </div>
+                  <div style="display:flex; flex-direction:column; align-items:flex-end; gap:8px;">
+                    <span class="timeline-period">Jun 2025 – Aug 2025</span>
+                    <span class="timeline-badge experience-badge">Internship</span>
+                  </div>
+                </div>
+                <p style="font-size:0.9rem; color:var(--text-secondary); line-height:1.7; margin-top:8px;">
+                  Working on full stack web development projects at one of India's premier technical institutions, gaining hands-on experience with industry-grade development workflows.
+                </p>
+              </div>
+            </div>
+
+            <div class="timeline-item reveal delay-2">
+              <div class="timeline-dot" aria-hidden="true"></div>
+              <div class="timeline-card">
+                <div class="timeline-meta">
+                  <div>
+                    <div class="timeline-role">Ethical Hacking &amp; Penetration Testing Intern</div>
+                    <div class="timeline-company">CDAC Noida</div>
+                  </div>
+                  <div style="display:flex; flex-direction:column; align-items:flex-end; gap:8px;">
+                    <span class="timeline-period">Sep 2024 – Oct 2024</span>
+                    <span class="timeline-badge experience-badge">Internship</span>
+                  </div>
+                </div>
+                <p style="font-size:0.9rem; color:var(--text-secondary); line-height:1.7; margin-top:8px;">
+                  Explored offensive security techniques including vulnerability assessment, penetration testing methodologies, and network security at a leading government R&amp;D organization.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Education -->
+        <div>
+          <h3 style="font-size:0.8rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-tertiary); margin-bottom:28px; padding-left:32px;" class="reveal">
+            Education
+          </h3>
+
+          <div class="timeline">
+            <div class="timeline-item reveal delay-1">
+              <div class="timeline-dot" aria-hidden="true" style="background: linear-gradient(135deg, #06b6d4, #2563eb);"></div>
+              <div class="timeline-card">
+                <div class="timeline-meta">
+                  <div>
+                    <div class="timeline-role">B.Tech in Computer Science &amp; Engineering</div>
+                    <div class="timeline-company">Shri Mata Vaishno Devi University</div>
+                  </div>
+                  <div style="display:flex; flex-direction:column; align-items:flex-end; gap:8px;">
+                    <span class="timeline-period">2023 – 2027</span>
+                    <span class="timeline-badge education-badge">Ongoing</span>
+                  </div>
+                </div>
+                <p style="font-size:0.9rem; color:var(--text-secondary); line-height:1.7; margin-top:8px;">
+                  Pursuing a Bachelor of Technology degree with a focus on Computer Science, exploring areas including full stack development, mobile applications, and cybersecurity.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ─── CONTACT ───────────────────────────────────────────── -->
+    <section id="contact" aria-label="Contact">
+      <div class="section-container">
+        <div class="contact-wrapper">
+          <div class="contact-glow" aria-hidden="true"></div>
+
+          <div class="contact-card reveal">
+            <div class="section-eyebrow" style="margin: 0 auto 20px;">Let's Connect</div>
+            <h2 class="contact-title">
+              Got an <span class="gradient-text">idea</span>?<br/>Let's build it.
+            </h2>
+            <p class="contact-subtitle">
+              Whether you have a project in mind, an internship opportunity, or just want to say hi — my inbox is always open.
+            </p>
+
+            <div class="contact-links">
+              <a href="https://github.com/igautamlasgotra" target="_blank" rel="noopener" class="contact-link" id="contact-github-link" aria-label="GitHub profile">
+                <svg viewBox="0 0 24 24" fill="currentColor" style="width:16px;height:16px;">
+                  <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.1.83-.26.83-.58v-2c-3.33.72-4.03-1.6-4.03-1.6-.55-1.38-1.33-1.75-1.33-1.75-1.08-.74.08-.72.08-.72 1.2.08 1.83 1.23 1.83 1.23 1.06 1.82 2.8 1.3 3.48.99.1-.77.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.3.46-2.38 1.23-3.22-.12-.3-.53-1.52.12-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 013-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.3-1.23 3.3-1.23.65 1.66.24 2.88.12 3.18.76.84 1.23 1.92 1.23 3.22 0 4.61-2.8 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.3c0 .32.22.69.83.57C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/>
+                </svg>
+                GitHub
+              </a>
+              <a href="https://linkedin.com/in/igautamlasgotra" target="_blank" rel="noopener" class="contact-link" id="contact-linkedin-link" aria-label="LinkedIn profile">
+                <svg viewBox="0 0 24 24" fill="currentColor" style="width:16px;height:16px;">
+                  <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.95v5.66H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.07 2.07 0 110-4.14 2.07 2.07 0 010 4.14zM6.9 20.45H3.56V9H6.9v11.45zM22.23 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.73V1.73C24 .77 23.21 0 22.23 0z"/>
+                </svg>
+                LinkedIn
+              </a>
+              <a href="mailto:glasgotra578@gmail.com" class="contact-link" id="contact-email-link" aria-label="Send email">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;">
+                  <rect x="2" y="4" width="20" height="16" rx="2"/>
+                  <path d="M2 7l10 8 10-8"/>
+                </svg>
+                Email Me
+              </a>
+            </div>
+
+            <a href="mailto:glasgotra578@gmail.com" class="contact-email" id="contact-email-display">
+              glasgotra578@gmail.com
+            </a>
+
+            <div style="margin-top:40px; padding-top:32px; border-top:1px solid var(--border-subtle);">
+              <a href="Resume_Gautam.pdf" target="_blank" rel="noopener" class="btn btn-primary magnetic-btn" id="contact-resume-btn">
+                Download Resume
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M8 3v8M4 7l4 4 4-4M3 13h10"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ─── FOOTER ────────────────────────────────────────────── -->
+  <footer role="contentinfo">
+    <div class="footer-left">
+      Designed &amp; built by <span>Gautam Lasgotra</span>
+    </div>
+    <div class="footer-right">
+      Made with <span class="footer-heart">♥</span> &amp; lots of ☕
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
