@@ -244,12 +244,15 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
   });
 });
 
-// ─── Hero Tagline Typing Effect (restored from main) ─────────
-// The headline/badge/actions reveal via CSS on load; the tagline types
-// itself out on top of that. Skipped entirely under reduced motion, so
-// the tagline simply appears in full.
-function typeWriter(el, text, speed = 30) {
+// ─── Hero Tagline Typing Effect (no flash of static text) ────
+// The tagline starts visibility:hidden in the stylesheet, so the raw
+// HTML text never paints before the effect. We lock the element height
+// first (prevents layout shift), then reveal + type. Under reduced
+// motion this whole block is skipped and CSS shows the text in full.
+function typeWriter(el, text, speed = 28) {
+  el.style.minHeight = el.offsetHeight + 'px'; // reserve full height before clearing
   el.textContent = '';
+  el.style.visibility = 'visible';
   let i = 0;
   const timer = setInterval(() => {
     if (i < text.length) {
@@ -261,16 +264,14 @@ function typeWriter(el, text, speed = 30) {
 }
 
 if (!reduceMotion) {
-  window.addEventListener('load', () => {
-    setTimeout(() => {
-      const tagline = document.querySelector('.hero-tagline');
-      if (tagline) {
-        const text = tagline.dataset.text || tagline.textContent;
-        tagline.dataset.text = text;
-        typeWriter(tagline, text, 30);
-      }
-    }, 900);
-  });
+  const tagline = document.querySelector('.hero-tagline');
+  if (tagline) {
+    const text = tagline.dataset.text || tagline.textContent.trim();
+    tagline.dataset.text = text;
+    // Fire on a short timer rather than window.load — load waits for the
+    // large profile image and would delay (or appear to hang) the type-in.
+    setTimeout(() => typeWriter(tagline, text, 28), 700);
+  }
 }
 
 // ─── Counter Animation ────────────────────────────────────────

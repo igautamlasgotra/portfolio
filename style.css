@@ -744,7 +744,10 @@ section {
   line-height: 1.6;
   font-weight: 300;
   letter-spacing: -0.01em;
-  animation: titleReveal 1s cubic-bezier(0.4, 0, 0.2, 1) 0.7s both;
+  /* Hidden from the very first paint so the raw HTML text never flashes
+     before the typing effect. JS flips this to visible as it starts
+     typing; reduced-motion users get it back via the media query below. */
+  visibility: hidden;
 }
 
 .hero-actions {
@@ -1765,4 +1768,6 @@ footer {
   .hero-scroll-hint { display: none; }
   /* Never leave content hidden behind a never-triggered reveal */
   .reveal, .reveal-left, .reveal-right { opacity: 1 !important; transform: none !important; }
+  /* Typing is skipped under reduced motion — show the tagline in full */
+  .hero-tagline { visibility: visible !important; }
 }
