@@ -1699,9 +1699,14 @@ footer {
   .project-github { top: 20px; right: 20px; }
   .project-desc { font-size: 0.9rem; }
 
-  .timeline { padding-left: 26px; }
-  .timeline-dot { left: -32px; }
+  /* Drop the rail + dots on mobile; stack clean full-width cards */
+  .timeline { padding-left: 0; }
+  .timeline::before { display: none; }
+  .timeline-dot { display: none; }
+  .timeline-item { padding-bottom: 16px; }
+  .timeline-item:last-child { padding-bottom: 0; }
   .timeline-card { padding: 22px 22px; }
+  .timeline-heading { padding-left: 0 !important; }
 
   .contact-card { padding: 40px 24px; }
   .contact-links { gap: 10px; }
