@@ -10,13 +10,19 @@ The portfolio was engineered following modern web standards with a strict **"No-
 
 ### 1. Front-End Core
 * **Structure:** Pure, Semantic HTML5 structure for high accessibility, correct heading hierarchies, and standard ARIA accessibility attributes.
-* **Styling:** Custom, fluid Vanilla CSS3 using curated design tokens (Harmonious Space Black background, smooth translucent overlays, HSL purple-to-cyan color gradients).
-* **Interactions & Logic:** Native high-performance JavaScript (ES6+) for scroll reveals, magnetic micro-animations, and dynamic mobile layouts.
+* **Styling:** Custom, fluid Vanilla CSS3 using curated design tokens (Harmonious Space Black background, restrained frosted-glass surfaces, HSL purple-to-cyan color gradients). Typography is set in **Inter** (free/open) with a native system-font fallback stack — deliberately no licensed Apple fonts — using tight heading tracking against regular-weight, generously-led body text for the Apple feel.
+* **Interactions & Logic:** Native high-performance JavaScript (ES6+) for scroll reveals, magnetic micro-animations, and dynamic mobile layouts. Pointer-driven and ambient effects are capability-gated to precise-pointer devices, and `prefers-reduced-motion` is fully honoured.
 
 ### 2. Premium UI/UX Design Details (Apple-Inspired)
-* **Custom Glowing Cursor:** Dual-ring interactive cursor with magnetic attraction targeting primary buttons.
+* **App-First Positioning:** Hero, About narrative, project ordering, and skills emphasis lead with mobile/Flutter app development, while keeping full-stack (MERN) range and a security background visible as supporting depth.
+* **Hero Type-In & Tagline Hierarchy:** The lead tagline types itself in on load with no flash of static text (hidden via CSS until the effect begins), then a dimmer, lighter supporting line fades in — an Apple-style "headline + supporting line" pair. Both appear in full immediately under reduced motion.
+* **Restrained Glassmorphism:** Frosted-glass navbar, cards, and overlay menu via `backdrop-filter` with hairline borders, plus an `@supports` fallback to more opaque surfaces where blur is unsupported.
+* **Custom Glowing Cursor:** Dual-ring interactive cursor with magnetic attraction targeting primary buttons, enabled wherever a real pointing device exists (`any-pointer: fine`, so it works on touchscreen laptops) and disabled on pure-touch devices.
 * **Apple-Style Mobile Navbar:** Redesigned responsive navigation bar. The button consists of a high-contrast glassmorphic pill that animates seamlessly from three tapering lines into a clean "X" closing button, triggering a full-screen blurred staggered overlay menu.
-* **Centered Toolkit Grid:** Flexbox layout that dynamically centers skills (17 items total). Ensures incomplete rows (e.g., the bottom row of 3 items on desktop) are perfectly centered rather than left-aligned, creating high visual symmetry.
+* **Brand-Logo Tech Grid:** A **Mobile** group leads the section with Flutter as a prominent anchor tile, followed by Languages, Web, Databases & Backend, and Developer Tools — every technology in exactly one group, no duplicates. Real brand logos are inlined as single-path SVGs, monochrome at rest and animating to each brand's colour on hover. The core mobile stack (Flutter, Dart, Firebase, Android Studio) is marked with an accent dot so an app-role reviewer spots it immediately.
+* **Mobile Timeline:** The Experience/Education timeline shows a vertical rail with dot markers on desktop; on phones the rail and dots are dropped for clean, full-width, single-column stacked cards.
+* **Real App Brand Mark:** The flagship Shramik tile uses the actual app icon (`assets/shramik_mark.svg`) as its brand mark, alongside a separate hover-reactive GitHub repo icon.
+* **Mobile-First & Accessible:** Phone-width audited (~375px) with ≈44px tap targets; heavy effects (cursor, tilt, particles, parallax) are reduced or disabled on touch, and reduced-motion preferences are respected.
 * **Custom 3D Favicon:** High-contrast 3D glassmorphic and chrome monogram ("GL") designed in standard rounded iOS squircle geometry with metallic bezel detailing. Specially optimized for high contrast at `16x16` browser tab scale.
 
 ---

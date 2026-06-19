@@ -3,7 +3,11 @@
    Apple × Tesla × Linear × Arc Browser Inspired
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=SF+Pro+Display:wght@100;200;300;400;500;600;700;800;900&display=swap');
+/* Fonts: Inter (free/open) is loaded via the <link> in index.html and
+   used as the primary family, with a native system-font fallback stack
+   (real SF on Apple, Segoe UI on Windows, Roboto on Android, etc.).
+   We deliberately do NOT use SF Pro — it's licensed to Apple platforms
+   only and isn't redistributable. */
 
 /* ─── CSS Variables ────────────────────────────────────────── */
 :root {
@@ -34,7 +38,7 @@
   --radius-md: 20px;
   --radius-lg: 32px;
   --radius-xl: 48px;
-  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   --nav-height: 72px;
   --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-smooth: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -58,10 +62,15 @@ body {
   background: var(--bg-primary);
   color: var(--text-primary);
   overflow-x: hidden;
-  cursor: none;
+  cursor: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Apple-like typesetting: regular-weight body, generous body leading,
+     subtle negative tracking. Headings set their own heavy weight and
+     tighter tracking/line-height for strong contrast. */
+  font-weight: 400;
   line-height: 1.6;
+  letter-spacing: -0.011em;
 }
 
 ::selection {
@@ -75,6 +84,7 @@ img { max-width: 100%; display: block; }
 
 /* ─── Custom Cursor ────────────────────────────────────────── */
 #cursor-dot {
+  display: none;
   position: fixed;
   width: 8px;
   height: 8px;
@@ -88,6 +98,7 @@ img { max-width: 100%; display: block; }
 }
 
 #cursor-ring {
+  display: none;
   position: fixed;
   width: 40px;
   height: 40px;
@@ -110,6 +121,19 @@ img { max-width: 100%; display: block; }
 
 #cursor-ring.clicked {
   transform: translate(-50%, -50%) scale(0.85);
+}
+
+/* Enable the custom cursor ONLY where a real pointing device exists.
+   This block MUST come AFTER the #cursor-dot/#cursor-ring `display:none`
+   defaults above: media queries don't raise specificity, so at equal
+   specificity the later rule wins. While it sat BEFORE those defaults,
+   the later `display:none` overrode this `display:block` and the cursor
+   never appeared on desktop — that was the bug. `any-pointer: fine`
+   matches any attached mouse/trackpad (incl. touchscreen laptops);
+   pure-touch devices keep their native cursor. */
+@media (any-pointer: fine) {
+  body { cursor: none; }
+  #cursor-dot, #cursor-ring { display: block; }
 }
 
 /* ─── Scrollbar ────────────────────────────────────────────── */
@@ -249,6 +273,9 @@ body::before {
 .nav-link.active::after { width: 60%; }
 
 .nav-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   padding: 9px 22px;
   background: rgba(124, 58, 237, 0.12);
   border: 1px solid rgba(124, 58, 237, 0.3);
@@ -259,6 +286,17 @@ body::before {
   transition: all var(--transition-fast);
   letter-spacing: -0.01em;
 }
+
+/* External-link arrow (replaces the old ↗ glyph) */
+.ext-arrow {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+  transition: transform var(--transition-fast);
+}
+.nav-cta:hover .ext-arrow,
+.nav-mobile-resume:hover .ext-arrow { transform: translate(2px, -2px); }
+.nav-mobile-resume { gap: 8px; }
 
 .nav-cta:hover {
   background: rgba(124, 58, 237, 0.22);
@@ -345,7 +383,7 @@ body::before {
   position: fixed;
   inset: 0;
   top: var(--nav-height);
-  background: rgba(5, 5, 7, 0.96);
+  background: rgba(5, 5, 7, 0.72);
   backdrop-filter: blur(32px) saturate(180%);
   -webkit-backdrop-filter: blur(32px) saturate(180%);
   z-index: 998;
@@ -708,15 +746,36 @@ section {
 }
 
 .hero-tagline {
-  font-size: clamp(1rem, 2.5vw, 1.25rem);
-  color: var(--text-secondary);
-  max-width: 600px;
+  max-width: 640px;
   margin: 24px auto 0;
-  line-height: 1.6;
-  font-weight: 300;
-  letter-spacing: -0.01em;
-  animation: titleReveal 1s cubic-bezier(0.4, 0, 0.2, 1) 0.7s both;
 }
+
+/* Lead line — the headline statement: bright, slightly heavier.
+   Hidden from first paint (typed in by JS); reduced-motion shows it. */
+.tagline-lead {
+  display: block;
+  font-size: clamp(1.0625rem, 2.6vw, 1.35rem);
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1.45;
+  letter-spacing: -0.015em;
+  visibility: hidden;
+}
+
+/* Supporting line — secondary: dimmer, lighter, smaller. Fades in after
+   the lead finishes typing (JS adds .revealed). */
+.tagline-sub {
+  display: block;
+  margin-top: 8px;
+  font-size: clamp(0.9rem, 2.1vw, 1.0625rem);
+  font-weight: 300;
+  color: rgba(245, 245, 247, 0.55);
+  line-height: 1.55;
+  letter-spacing: -0.01em;
+  opacity: 0;
+  transition: opacity 0.7s ease;
+}
+.tagline-sub.revealed { opacity: 1; }
 
 .hero-actions {
   display: flex;
@@ -860,7 +919,9 @@ section {
   border-radius: var(--radius-md);
   padding: 18px;
   text-align: center;
-  transition: all var(--transition-smooth);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  transition: background var(--transition-smooth), border-color var(--transition-smooth), transform var(--transition-smooth);
 }
 
 .stat-card:hover {
@@ -919,36 +980,88 @@ section {
 
 .skills-header {
   text-align: center;
-  margin-bottom: 70px;
+  margin-bottom: 20px;
 }
 
 .skills-header .section-eyebrow { margin-inline: auto; }
 .skills-header .section-subtitle { margin: 0 auto; text-align: center; }
 
-.skills-grid {
+/* Legend explaining the highlighted core-mobile tiles */
+.skills-legend {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  margin: 0 auto 56px;
+  font-size: 0.82rem;
+  color: var(--text-tertiary);
+  letter-spacing: 0.01em;
+}
+.skills-legend .legend-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--gradient-accent);
+  box-shadow: 0 0 10px rgba(124, 58, 237, 0.7);
+  flex-shrink: 0;
+}
+
+/* Grouped categories */
+.skills-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.skill-group-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 24px;
+}
+.skill-group-title::before,
+.skill-group-title::after {
+  content: '';
+  height: 1px;
+  width: clamp(24px, 8vw, 70px);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12));
+}
+.skill-group-title::after {
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.12), transparent);
+}
+
+.skill-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 14px;
   justify-content: center;
 }
 
-.skill-chip {
+.skill-tile {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
-  padding: 22px 16px;
-  width: 130px;
+  gap: 13px;
+  padding: 22px 14px;
+  width: 116px;
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
-  transition: all var(--transition-smooth);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  transition: transform var(--transition-smooth), border-color var(--transition-smooth), box-shadow var(--transition-smooth), background var(--transition-smooth);
   cursor: default;
   position: relative;
   overflow: hidden;
 }
 
-.skill-chip::before {
+.skill-tile::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -957,24 +1070,91 @@ section {
   transition: opacity var(--transition-smooth);
 }
 
-.skill-chip:hover {
-  border-color: rgba(124,58,237,0.3);
-  transform: translateY(-6px) scale(1.03);
-  box-shadow: 0 16px 40px rgba(0,0,0,0.3), 0 0 20px rgba(124,58,237,0.1);
+.skill-tile:hover {
+  border-color: rgba(124, 58, 237, 0.3);
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3), 0 0 20px rgba(124, 58, 237, 0.1);
+}
+.skill-tile:hover::before { opacity: 1; }
+
+/* Core mobile stack — a small accent dot marks the technologies that
+   make up my mobile workflow (Flutter, Dart, Firebase, Android Studio),
+   wherever they sit in the grid. Subtle: just a border tint + corner dot. */
+.skill-tile.is-core {
+  border-color: rgba(124, 58, 237, 0.32);
+}
+.skill-tile.is-core::after {
+  content: '';
+  position: absolute;
+  top: 11px;
+  right: 11px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gradient-accent);
+  box-shadow: 0 0 8px rgba(124, 58, 237, 0.7);
+  z-index: 2;
 }
 
-.skill-chip:hover::before { opacity: 1; }
-
-.skill-icon {
-  font-size: 1.75rem;
+/* Mobile anchor — the single prominent tile leading the section.
+   A wider horizontal card so the one-item Mobile group reads as a
+   deliberate anchor, not a thin lonely tile. */
+.skill-tile.skill-anchor {
+  flex-direction: row;
+  align-items: center;
+  gap: 18px;
+  width: auto;
+  max-width: 460px;
+  padding: 24px 32px;
+  border-color: rgba(124, 58, 237, 0.42);
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.16), rgba(37, 99, 235, 0.08));
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.3), 0 0 34px rgba(124, 58, 237, 0.12);
+}
+.skill-anchor .skill-logo {
+  width: 46px;
+  height: 46px;
+  color: var(--brand); /* Flutter cyan at rest — it's the anchor */
+  flex-shrink: 0;
+}
+.skill-anchor .anchor-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
   position: relative;
   z-index: 1;
-  transition: transform var(--transition-spring);
 }
-.skill-chip:hover .skill-icon { transform: scale(1.2); }
+.skill-anchor .skill-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: left;
+}
+.skill-anchor .anchor-sub {
+  font-size: 0.76rem;
+  color: var(--text-tertiary);
+  letter-spacing: 0.01em;
+}
+
+.skill-logo {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  color: rgba(245, 245, 247, 0.5);
+  position: relative;
+  z-index: 1;
+  transition: color var(--transition-smooth), transform var(--transition-spring);
+}
+.skill-logo svg { width: 100%; height: 100%; display: block; }
+
+.skill-tile:hover .skill-logo {
+  color: var(--brand);
+  transform: scale(1.12);
+}
 
 .skill-name {
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   font-weight: 500;
   color: var(--text-secondary);
   letter-spacing: 0.02em;
@@ -994,7 +1174,7 @@ section {
 
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+  grid-template-columns: 1fr;
   gap: 24px;
 }
 
@@ -1005,7 +1185,9 @@ section {
   padding: 36px;
   position: relative;
   overflow: hidden;
-  transition: all var(--transition-smooth);
+  backdrop-filter: blur(14px) saturate(150%);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+  transition: transform var(--transition-smooth), border-color var(--transition-smooth), box-shadow var(--transition-smooth);
   transform-style: preserve-3d;
   cursor: default;
 }
@@ -1039,38 +1221,119 @@ section {
 .project-card:hover::before { opacity: 1; }
 .project-card:hover::after { opacity: 1; }
 
+/* Top line: project number + optional flagship badge */
+.project-topline {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-right: 56px; /* clear the absolute GitHub icon */
+  position: relative;
+  z-index: 1;
+}
+
 .project-number {
   font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--text-tertiary);
-  margin-bottom: 20px;
-  position: relative;
-  z-index: 1;
 }
 
+.project-flagship {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 11px;
+  border-radius: 50px;
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #c4b5fd;
+  background: rgba(124, 58, 237, 0.14);
+  border: 1px solid rgba(124, 58, 237, 0.35);
+}
+
+/* Clickable GitHub icon — top-right of each card */
+.project-github {
+  position: absolute;
+  top: 28px;
+  right: 28px;
+  width: 42px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-glass);
+  z-index: 3;
+  transition: color var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+}
+.project-github svg { width: 20px; height: 20px; display: block; }
+.project-github:hover {
+  color: var(--text-primary);
+  background: rgba(124, 58, 237, 0.16);
+  border-color: rgba(124, 58, 237, 0.4);
+  transform: translateY(-2px);
+}
+.project-github:active { transform: translateY(0) scale(0.95); }
+
 .project-icon {
-  width: 52px;
-  height: 52px;
+  width: 56px;
+  height: 56px;
   background: rgba(124,58,237,0.1);
   border: 1px solid rgba(124,58,237,0.2);
-  border-radius: 14px;
+  border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.4rem;
+  color: rgba(245, 245, 247, 0.9);
   margin-bottom: 24px;
   position: relative;
   z-index: 1;
-  transition: all var(--transition-smooth);
+  transition: background var(--transition-smooth), border-color var(--transition-smooth), transform var(--transition-smooth), color var(--transition-smooth);
 }
+.project-icon svg { width: 28px; height: 28px; display: block; }
+
+/* Real app brand mark (self-contained icon with its own background) */
+.project-logo {
+  width: 68px;
+  height: 68px;
+  margin-bottom: 24px;
+  border-radius: 18px;
+  object-fit: contain;
+  position: relative;
+  z-index: 1;
+  /* Lift it off the glass for clear contrast */
+  filter: drop-shadow(0 8px 22px rgba(0, 0, 0, 0.4));
+  transition: transform var(--transition-smooth);
+}
+.project-card:hover .project-logo { transform: scale(1.07); }
 
 .project-card:hover .project-icon {
   background: rgba(124,58,237,0.2);
   border-color: rgba(124,58,237,0.4);
-  transform: scale(1.1);
+  transform: scale(1.08);
 }
+
+/* Featured flagship card — visual hero of the section */
+.project-card.is-featured {
+  border-color: rgba(124, 58, 237, 0.28);
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.07), rgba(37, 99, 235, 0.035));
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35), 0 0 40px rgba(124, 58, 237, 0.06);
+}
+.project-card.is-featured::after { opacity: 1; }
+.project-card.is-featured .project-title { font-size: 1.85rem; }
+.project-card.is-featured .project-icon {
+  width: 64px;
+  height: 64px;
+  background: rgba(124, 58, 237, 0.18);
+  border-color: rgba(124, 58, 237, 0.35);
+}
+.project-card.is-featured .project-icon svg { width: 32px; height: 32px; }
 
 .project-title {
   font-size: 1.5rem;
@@ -1207,7 +1470,9 @@ section {
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
   padding: 28px 32px;
-  transition: all var(--transition-smooth);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  transition: background var(--transition-smooth), border-color var(--transition-smooth), transform var(--transition-smooth);
 }
 
 .timeline-card:hover {
@@ -1371,15 +1636,14 @@ section {
 
 /* ─── FOOTER ─────────────────────────────────────────────────── */
 footer {
-  padding: 36px 40px;
+  padding: 72px 40px;
   border-top: 1px solid var(--border-subtle);
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  text-align: center;
   position: relative;
   z-index: 2;
-  flex-wrap: wrap;
-  gap: 12px;
 }
 
 .footer-left {
@@ -1392,24 +1656,15 @@ footer {
   font-weight: 500;
 }
 
-.footer-right {
-  font-size: 0.8rem;
-  color: var(--text-tertiary);
-  display: flex;
-  align-items: center;
-  gap: 6px;
+/* Gentle Apple-style fade-in — reuses the global .reveal observer,
+   just a shorter travel (12px) and slightly slower, smooth easing.
+   prefers-reduced-motion is already handled by the global .reveal rule. */
+footer .reveal {
+  transform: translateY(12px);
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
-.footer-heart {
-  color: #7c3aed;
-  animation: heartbeat 2s ease-in-out infinite;
-}
-
-@keyframes heartbeat {
-  0%, 100% { transform: scale(1); }
-  25% { transform: scale(1.2); }
-  50% { transform: scale(1); }
-  75% { transform: scale(1.1); }
+footer .reveal.visible {
+  transform: translateY(0);
 }
 
 /* ─── MOBILE NAV INDICATOR ──────────────────────────────────── */
@@ -1424,40 +1679,137 @@ footer {
   width: 0%;
 }
 
-/* ─── RESPONSIVE ─────────────────────────────────────────────── */
-@media (max-width: 768px) {
-  body { cursor: auto; }
-  #cursor-dot, #cursor-ring { display: none; }
+/* ─── GLASS FALLBACK ─────────────────────────────────────────── */
+/* Where backdrop-filter isn't supported, fall back to more opaque
+   surfaces so text stays legible (no see-through, unreadable glass). */
+@supports not ((backdrop-filter: blur(2px)) or (-webkit-backdrop-filter: blur(2px))) {
+  #navbar.scrolled { background: rgba(5, 5, 7, 0.95); }
+  .nav-mobile-menu { background: rgba(5, 5, 7, 0.98); }
+  .contact-card,
+  .project-card,
+  .stat-card,
+  .timeline-card,
+  .skill-tile { background: rgba(18, 18, 24, 0.92); }
+  .nav-hamburger { background: rgba(255, 255, 255, 0.12); }
+}
 
+/* ─── RESPONSIVE ─────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  #about, #skills, #projects, #experience, #contact { padding: 110px 0; }
+  .about-grid { gap: 56px; }
+}
+
+@media (max-width: 768px) {
   #navbar { padding: 0 20px; }
   .nav-links { display: none; }
   .nav-cta { display: none; }
-  .nav-hamburger { display: flex; }
+  .nav-hamburger { display: flex; width: 44px; height: 44px; }
 
-  .section-container { padding: 0 20px; }
+  .section-container { padding: 0 22px; }
 
-  #hero { padding: 120px 20px 80px; }
+  /* Tighter, even vertical rhythm on phones */
+  #about, #skills, #projects, #experience, #contact { padding: 90px 0; }
 
-  .about-grid {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-  /* Portrait-friendly frame on mobile */
-  .about-image-frame {
-    width: 220px;
-    height: 290px;
-  }
+  #hero { padding: 116px 22px 90px; }
+  .hero-actions { margin-top: 36px; }
 
-  .projects-grid { grid-template-columns: 1fr; }
+  /* Lighter ambient orbs — large blurs are costly on mobile GPUs */
+  .ambient-orb-1 { width: 360px; height: 360px; filter: blur(80px); }
+  .ambient-orb-2 { width: 320px; height: 320px; filter: blur(80px); }
+  .ambient-orb-3 { display: none; }
 
-  .contact-card { padding: 36px 24px; }
-  footer { padding: 24px 20px; flex-direction: column; text-align: center; gap: 8px; }
+  .about-grid { grid-template-columns: 1fr; gap: 44px; }
+  .about-image-frame { width: 220px; height: 290px; }
+
+  /* Skills: clean 2-up tiles */
+  .skills-groups { gap: 40px; }
+  .skill-grid { gap: 10px; }
+  .skill-tile { width: calc(50% - 5px); max-width: 220px; padding: 20px 12px; }
+  .skill-tile.skill-anchor { width: 100%; max-width: 100%; padding: 20px 22px; }
+
+  .projects-grid { gap: 18px; }
+  .project-card { padding: 26px 22px; }
+  .project-card.is-featured .project-title { font-size: 1.5rem; }
+  .project-logo { width: 58px; height: 58px; border-radius: 15px; margin-bottom: 20px; }
+  .project-github { top: 20px; right: 20px; }
+  .project-desc { font-size: 0.9rem; }
+
+  /* Drop the rail + dots on mobile; stack clean full-width cards.
+     Scoped to #experience so specificity is (1,1,x), which outranks the
+     base .timeline rules (0,1,x) on its own — no !important needed.
+     This hides the ::before rail AND the dots, and zeroes the left
+     padding on the container, items, and section headings (the indent). */
+  #experience .timeline { padding-left: 0; }
+  #experience .timeline::before { display: none; }       /* vertical rail */
+  #experience .timeline-dot { display: none; }            /* dot markers */
+  #experience .timeline-item { padding-bottom: 16px; padding-left: 0; }
+  #experience .timeline-item:last-child { padding-bottom: 0; }
+  #experience .timeline-card { padding: 22px 22px; width: 100%; }
+  #experience .timeline-heading { padding-left: 0; }
+
+  .contact-card { padding: 40px 24px; }
+  .contact-links { gap: 10px; }
+  .contact-link { flex: 1 1 calc(50% - 5px); justify-content: center; }
+
+  footer { padding: 56px 22px; }
+}
+
+/* Generous tap targets on touch devices (≈44px minimum) */
+@media (hover: none) {
+  .btn,
+  .project-link,
+  .contact-link,
+  .nav-mobile-link { min-height: 44px; }
+  .nav-hamburger { width: 44px; height: 44px; }
+  .project-github { width: 44px; height: 44px; }
+
+  /* Defense-in-depth: drop the timeline rail + dots on ANY touch device,
+     independent of the width breakpoint. #experience scoping outranks the
+     base rules without !important. Touchscreen laptops keep the rail
+     (their mouse reports hover:hover, so this query won't match). */
+  #experience .timeline { padding-left: 0; }
+  #experience .timeline::before { display: none; }
+  #experience .timeline-dot { display: none; }
+  #experience .timeline-item { padding-left: 0; }
+  #experience .timeline-heading { padding-left: 0; }
 }
 
 @media (max-width: 480px) {
-  .hero-title { font-size: 2.4rem; }
-  .hero-actions { gap: 12px; }
-  .btn { padding: 12px 22px; font-size: 0.875rem; }
+  .hero-badge { font-size: 0.72rem; padding: 7px 14px; margin-bottom: 26px; }
+  .hero-title { font-size: clamp(2rem, 10vw, 2.7rem); }
+  .hero-tagline { font-size: 1rem; }
+  .hero-actions { flex-direction: column; gap: 12px; width: 100%; }
+  .hero-actions .btn { width: 100%; justify-content: center; }
+  .btn { padding: 13px 22px; font-size: 0.9rem; }
 
   .nav-mobile-link { font-size: 1.2rem; padding: 16px 20px; }
+
+  .about-stats { gap: 10px; }
+  .stat-card { padding: 16px 12px; }
+  .stat-number { font-size: 1.5rem; }
+
+  .skill-tile { padding: 18px 10px; gap: 11px; }
+  .skill-logo { width: 30px; height: 30px; }
+
+  .project-card { padding: 24px 20px; }
+  .contact-link { flex: 1 1 calc(50% - 5px); }
+}
+
+/* ─── REDUCED MOTION ─────────────────────────────────────────── */
+/* Honour the OS-level "reduce motion" preference: no parallax,
+   particles, looping ambient animation, or transition theatrics. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .ambient-orb, .particle { display: none !important; }
+  .hero-scroll-hint { display: none; }
+  /* Never leave content hidden behind a never-triggered reveal */
+  .reveal, .reveal-left, .reveal-right { opacity: 1 !important; transform: none !important; }
+  /* Typing/fade skipped under reduced motion — show both lines in full */
+  .tagline-lead { visibility: visible !important; }
+  .tagline-sub { opacity: 1 !important; }
 }
