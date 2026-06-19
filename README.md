@@ -8,17 +8,19 @@ A premium, Apple-inspired developer portfolio built as a single static page. Gla
 
 ## Tech Stack
 
-Pure **HTML5 + CSS3 + Vanilla JavaScript** — zero dependencies, zero frameworks, no build step. All icons are inlined SVGs, so nothing is fetched from an icon CDN or font.
+Pure **HTML5 + CSS3 + Vanilla JavaScript** — zero dependencies, zero frameworks, no build step. All icons are inlined SVGs, so nothing is fetched from an icon CDN or font. Typography is **Inter** (free/open) with a native system-font fallback stack — no licensed Apple fonts.
 
 ## Features
 
 - **Glassmorphism UI** — frosted navbar, cards, and full-screen overlay menu via `backdrop-filter`, with hairline borders and a graceful `@supports` fallback where blur is unsupported.
-- **Brand-logo tech grid** — skills grouped into Languages / Web / Databases & Backend / Developer Tools. Logos sit neutral and animate to their brand colour on hover; the core mobile stack (Flutter, Dart, Firebase) is highlighted.
+- **Apple-style typography** — Inter with tight tracking and heavy headings against regular-weight, generously-led body text.
+- **Hero type-in** — the lead tagline types itself in on load (no flash of static text), then a dimmer supporting line fades in; both appear instantly under reduced motion.
+- **Brand-logo tech grid** — a **Mobile** group leads (Flutter as a prominent anchor tile), followed by Languages / Web / Databases & Backend / Developer Tools. Logos sit neutral and animate to their brand colour on hover; the core mobile stack (Flutter, Dart, Firebase, Android Studio) is marked with an accent dot.
 - **Flagship project tile** — Shramik (Flutter/Firebase) leads as the visual hero with its real app logo; each card has a hover-reactive GitHub repo icon.
-- **Custom glowing cursor** — dual-ring magnetic cursor on desktop (precise-pointer devices only).
+- **Custom glowing cursor** — dual-ring magnetic cursor, enabled on any device with a real pointer (`any-pointer: fine`, so it works on touchscreen laptops too) and disabled on pure-touch devices.
 - **Scroll-triggered reveals**, **3D tilt cards**, **hero parallax**, and **animated stat counters**.
 - **Apple-style mobile menu** — glass icon button animating three lines → X, with a staggered overlay.
-- **Fully responsive & accessible** — audited at phone widths with ≈44px tap targets; heavy effects are disabled on touch devices and `prefers-reduced-motion` is fully respected.
+- **Fully responsive & accessible** — audited at phone widths with ≈44px tap targets; the Experience/Education timeline drops its rail for clean full-width stacked cards on mobile; heavy effects are reduced on touch devices and `prefers-reduced-motion` is fully respected.
 
 ## Project Structure
 
@@ -48,7 +50,7 @@ Every push to `main` triggers an automatic build and deploy. The custom `.dev` d
 
 - **Hero** — app-developer positioning with particle/parallax background
 - **About** — mobile-first narrative, profile, and animated stats
-- **Skills** — categorized brand-logo toolkit with mobile stack highlighted
+- **Skills** — Mobile-first brand-logo toolkit (Flutter anchor) with the core mobile stack accent-marked
 - **Projects** — Shramik (flagship Flutter app) and CampusCrate (MERN)
 - **Experience & Education** — IIT Jammu & CDAC Noida internships, SMVDU B.Tech
 - **Contact** — GitHub, LinkedIn, WhatsApp, email, and resume download
