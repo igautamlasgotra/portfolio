@@ -7,11 +7,14 @@
 
 // ─── Capability detection ────────────────────────────────────
 // The custom cursor and pointer-driven effects are gated purely on
-// INPUT CAPABILITY (a precise pointer) — never on viewport width — so
-// they run on desktop/mouse devices (even with reduced-motion on) and
-// are disabled only on touch. Genuine ambient motion (particles,
-// parallax) additionally respects the reduced-motion preference.
-const finePointer  = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+// INPUT CAPABILITY — never on viewport width. We use `any-pointer: fine`
+// (true whenever ANY mouse/trackpad is present) rather than `pointer: fine`
+// (the PRIMARY pointer), because touchscreen laptops report a coarse
+// primary pointer even with a mouse attached — which previously disabled
+// the cursor on desktop. So: cursor runs on any device with a mouse, and
+// is disabled only on pure-touch devices. Genuine ambient motion
+// (particles, parallax) additionally respects reduced-motion.
+const finePointer  = window.matchMedia('(any-pointer: fine)').matches;
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // ─── Custom cursor, magnetic buttons, glow & 3D tilt (pointer devices) ─

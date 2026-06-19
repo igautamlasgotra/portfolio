@@ -64,10 +64,12 @@ body {
   line-height: 1.6;
 }
 
-/* The custom cursor only exists on precise pointers; the native
-   cursor is hidden only there, so touch/reduced-motion users keep
-   a normal cursor. */
-@media (hover: hover) and (pointer: fine) {
+/* The custom cursor exists wherever a real pointing device is present.
+   `any-pointer: fine` matches any attached mouse/trackpad (including on
+   touchscreen laptops, whose PRIMARY pointer may report as coarse), so
+   the native cursor is hidden and the rings shown there; pure-touch
+   devices keep their normal cursor/behaviour. */
+@media (any-pointer: fine) {
   body { cursor: none; }
   #cursor-dot, #cursor-ring { display: block; }
 }
