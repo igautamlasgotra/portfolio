@@ -244,12 +244,12 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
   });
 });
 
-// ─── Hero Tagline Typing Effect (no flash of static text) ────
-// The tagline starts visibility:hidden in the stylesheet, so the raw
-// HTML text never paints before the effect. We lock the element height
-// first (prevents layout shift), then reveal + type. Under reduced
-// motion this whole block is skipped and CSS shows the text in full.
-function typeWriter(el, text, speed = 28) {
+// ─── Hero Tagline: type the lead line, then reveal the sub line ──
+// The lead line starts visibility:hidden in the stylesheet (no flash of
+// static text). We lock its height (no layout shift), reveal + type it,
+// then fade in the dimmer supporting line. Under reduced motion this is
+// skipped entirely and CSS shows both lines in full.
+function typeWriter(el, text, speed, onDone) {
   el.style.minHeight = el.offsetHeight + 'px'; // reserve full height before clearing
   el.textContent = '';
   el.style.visibility = 'visible';
@@ -259,18 +259,22 @@ function typeWriter(el, text, speed = 28) {
       el.textContent += text[i++];
     } else {
       clearInterval(timer);
+      if (typeof onDone === 'function') onDone();
     }
   }, speed);
 }
 
 if (!reduceMotion) {
-  const tagline = document.querySelector('.hero-tagline');
-  if (tagline) {
-    const text = tagline.dataset.text || tagline.textContent.trim();
-    tagline.dataset.text = text;
+  const lead = document.querySelector('.tagline-lead');
+  const sub  = document.querySelector('.tagline-sub');
+  if (lead) {
+    const text = lead.dataset.text || lead.textContent.trim();
+    lead.dataset.text = text;
     // Fire on a short timer rather than window.load — load waits for the
     // large profile image and would delay (or appear to hang) the type-in.
-    setTimeout(() => typeWriter(tagline, text, 28), 700);
+    setTimeout(() => {
+      typeWriter(lead, text, 28, () => { if (sub) sub.classList.add('revealed'); });
+    }, 700);
   }
 }
 

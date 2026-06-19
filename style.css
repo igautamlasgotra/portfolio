@@ -746,18 +746,36 @@ section {
 }
 
 .hero-tagline {
-  font-size: clamp(1rem, 2.5vw, 1.25rem);
-  color: var(--text-secondary);
-  max-width: 600px;
+  max-width: 640px;
   margin: 24px auto 0;
-  line-height: 1.6;
-  font-weight: 300;
-  letter-spacing: -0.01em;
-  /* Hidden from the very first paint so the raw HTML text never flashes
-     before the typing effect. JS flips this to visible as it starts
-     typing; reduced-motion users get it back via the media query below. */
+}
+
+/* Lead line — the headline statement: bright, slightly heavier.
+   Hidden from first paint (typed in by JS); reduced-motion shows it. */
+.tagline-lead {
+  display: block;
+  font-size: clamp(1.0625rem, 2.6vw, 1.35rem);
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1.45;
+  letter-spacing: -0.015em;
   visibility: hidden;
 }
+
+/* Supporting line — secondary: dimmer, lighter, smaller. Fades in after
+   the lead finishes typing (JS adds .revealed). */
+.tagline-sub {
+  display: block;
+  margin-top: 8px;
+  font-size: clamp(0.9rem, 2.1vw, 1.0625rem);
+  font-weight: 300;
+  color: rgba(245, 245, 247, 0.55);
+  line-height: 1.55;
+  letter-spacing: -0.01em;
+  opacity: 0;
+  transition: opacity 0.7s ease;
+}
+.tagline-sub.revealed { opacity: 1; }
 
 .hero-actions {
   display: flex;
@@ -1777,6 +1795,7 @@ footer {
   .hero-scroll-hint { display: none; }
   /* Never leave content hidden behind a never-triggered reveal */
   .reveal, .reveal-left, .reveal-right { opacity: 1 !important; transform: none !important; }
-  /* Typing is skipped under reduced motion — show the tagline in full */
-  .hero-tagline { visibility: visible !important; }
+  /* Typing/fade skipped under reduced motion — show both lines in full */
+  .tagline-lead { visibility: visible !important; }
+  .tagline-sub { opacity: 1 !important; }
 }
