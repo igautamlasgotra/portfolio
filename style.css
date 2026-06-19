@@ -1044,6 +1044,25 @@ section {
 }
 .skill-tile:hover::before { opacity: 1; }
 
+/* Core mobile stack — a small accent dot marks the technologies that
+   make up my mobile workflow (Flutter, Dart, Firebase, Android Studio),
+   wherever they sit in the grid. Subtle: just a border tint + corner dot. */
+.skill-tile.is-core {
+  border-color: rgba(124, 58, 237, 0.32);
+}
+.skill-tile.is-core::after {
+  content: '';
+  position: absolute;
+  top: 11px;
+  right: 11px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gradient-accent);
+  box-shadow: 0 0 8px rgba(124, 58, 237, 0.7);
+  z-index: 2;
+}
+
 /* Mobile anchor — the single prominent tile leading the section.
    A wider horizontal card so the one-item Mobile group reads as a
    deliberate anchor, not a thin lonely tile. */
