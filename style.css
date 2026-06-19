@@ -1758,6 +1758,15 @@ footer {
   .nav-mobile-link { min-height: 44px; }
   .nav-hamburger { width: 44px; height: 44px; }
   .project-github { width: 44px; height: 44px; }
+
+  /* Defense-in-depth: drop the timeline rail + dots on ANY touch device,
+     independent of the width breakpoint. Touchscreen laptops keep the
+     rail (their mouse reports hover:hover, so this query won't match). */
+  .timeline { padding-left: 0 !important; }
+  .timeline::before { display: none !important; }
+  .timeline-dot { display: none !important; }
+  .timeline-item { padding-left: 0 !important; }
+  .timeline-heading { padding-left: 0 !important; }
 }
 
 @media (max-width: 480px) {
