@@ -1636,15 +1636,14 @@ section {
 
 /* ─── FOOTER ─────────────────────────────────────────────────── */
 footer {
-  padding: 36px 40px;
+  padding: 72px 40px;
   border-top: 1px solid var(--border-subtle);
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  text-align: center;
   position: relative;
   z-index: 2;
-  flex-wrap: wrap;
-  gap: 12px;
 }
 
 .footer-left {
@@ -1657,12 +1656,15 @@ footer {
   font-weight: 500;
 }
 
-.footer-right {
-  font-size: 0.8rem;
-  color: var(--text-tertiary);
-  display: flex;
-  align-items: center;
-  gap: 6px;
+/* Gentle Apple-style fade-in — reuses the global .reveal observer,
+   just a shorter travel (12px) and slightly slower, smooth easing.
+   prefers-reduced-motion is already handled by the global .reveal rule. */
+footer .reveal {
+  transform: translateY(12px);
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+footer .reveal.visible {
+  transform: translateY(0);
 }
 
 /* ─── MOBILE NAV INDICATOR ──────────────────────────────────── */
@@ -1747,7 +1749,7 @@ footer {
   .contact-links { gap: 10px; }
   .contact-link { flex: 1 1 calc(50% - 5px); justify-content: center; }
 
-  footer { padding: 24px 20px; flex-direction: column; text-align: center; gap: 8px; }
+  footer { padding: 56px 22px; }
 }
 
 /* Generous tap targets on touch devices (≈44px minimum) */
