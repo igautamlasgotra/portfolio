@@ -58,10 +58,18 @@ body {
   background: var(--bg-primary);
   color: var(--text-primary);
   overflow-x: hidden;
-  cursor: none;
+  cursor: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.6;
+}
+
+/* The custom cursor only exists on precise pointers; the native
+   cursor is hidden only there, so touch/reduced-motion users keep
+   a normal cursor. */
+@media (hover: hover) and (pointer: fine) {
+  body { cursor: none; }
+  #cursor-dot, #cursor-ring { display: block; }
 }
 
 ::selection {
@@ -75,6 +83,7 @@ img { max-width: 100%; display: block; }
 
 /* ─── Custom Cursor ────────────────────────────────────────── */
 #cursor-dot {
+  display: none;
   position: fixed;
   width: 8px;
   height: 8px;
@@ -88,6 +97,7 @@ img { max-width: 100%; display: block; }
 }
 
 #cursor-ring {
+  display: none;
   position: fixed;
   width: 40px;
   height: 40px;
@@ -1562,18 +1572,6 @@ footer {
   gap: 6px;
 }
 
-.footer-heart {
-  color: #7c3aed;
-  animation: heartbeat 2s ease-in-out infinite;
-}
-
-@keyframes heartbeat {
-  0%, 100% { transform: scale(1); }
-  25% { transform: scale(1.2); }
-  50% { transform: scale(1); }
-  75% { transform: scale(1.1); }
-}
-
 /* ─── MOBILE NAV INDICATOR ──────────────────────────────────── */
 .nav-progress {
   position: fixed;
@@ -1586,40 +1584,115 @@ footer {
   width: 0%;
 }
 
-/* ─── RESPONSIVE ─────────────────────────────────────────────── */
-@media (max-width: 768px) {
-  body { cursor: auto; }
-  #cursor-dot, #cursor-ring { display: none; }
+/* ─── GLASS FALLBACK ─────────────────────────────────────────── */
+/* Where backdrop-filter isn't supported, fall back to more opaque
+   surfaces so text stays legible (no see-through, unreadable glass). */
+@supports not ((backdrop-filter: blur(2px)) or (-webkit-backdrop-filter: blur(2px))) {
+  #navbar.scrolled { background: rgba(5, 5, 7, 0.95); }
+  .nav-mobile-menu { background: rgba(5, 5, 7, 0.98); }
+  .contact-card,
+  .project-card,
+  .stat-card,
+  .timeline-card,
+  .skill-tile { background: rgba(18, 18, 24, 0.92); }
+  .nav-hamburger { background: rgba(255, 255, 255, 0.12); }
+}
 
+/* ─── RESPONSIVE ─────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  #about, #skills, #projects, #experience, #contact { padding: 110px 0; }
+  .about-grid { gap: 56px; }
+}
+
+@media (max-width: 768px) {
   #navbar { padding: 0 20px; }
   .nav-links { display: none; }
   .nav-cta { display: none; }
-  .nav-hamburger { display: flex; }
+  .nav-hamburger { display: flex; width: 44px; height: 44px; }
 
-  .section-container { padding: 0 20px; }
+  .section-container { padding: 0 22px; }
 
-  #hero { padding: 120px 20px 80px; }
+  /* Tighter, even vertical rhythm on phones */
+  #about, #skills, #projects, #experience, #contact { padding: 90px 0; }
 
-  .about-grid {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-  /* Portrait-friendly frame on mobile */
-  .about-image-frame {
-    width: 220px;
-    height: 290px;
-  }
+  #hero { padding: 116px 22px 90px; }
+  .hero-actions { margin-top: 36px; }
 
-  .projects-grid { grid-template-columns: 1fr; }
+  /* Lighter ambient orbs — large blurs are costly on mobile GPUs */
+  .ambient-orb-1 { width: 360px; height: 360px; filter: blur(80px); }
+  .ambient-orb-2 { width: 320px; height: 320px; filter: blur(80px); }
+  .ambient-orb-3 { display: none; }
 
-  .contact-card { padding: 36px 24px; }
+  .about-grid { grid-template-columns: 1fr; gap: 44px; }
+  .about-image-frame { width: 220px; height: 290px; }
+
+  /* Skills: clean 2-up tiles */
+  .skills-groups { gap: 40px; }
+  .skill-grid { gap: 10px; }
+  .skill-tile { width: calc(50% - 5px); max-width: 220px; padding: 20px 12px; }
+
+  .projects-grid { gap: 18px; }
+  .project-card { padding: 26px 22px; }
+  .project-card.is-featured .project-title { font-size: 1.5rem; }
+  .project-github { top: 20px; right: 20px; }
+  .project-desc { font-size: 0.9rem; }
+
+  .timeline { padding-left: 26px; }
+  .timeline-dot { left: -32px; }
+  .timeline-card { padding: 22px 22px; }
+
+  .contact-card { padding: 40px 24px; }
+  .contact-links { gap: 10px; }
+  .contact-link { flex: 1 1 calc(50% - 5px); justify-content: center; }
+
   footer { padding: 24px 20px; flex-direction: column; text-align: center; gap: 8px; }
 }
 
+/* Generous tap targets on touch devices (≈44px minimum) */
+@media (hover: none) {
+  .btn,
+  .project-link,
+  .contact-link,
+  .nav-mobile-link { min-height: 44px; }
+  .nav-hamburger { width: 44px; height: 44px; }
+  .project-github { width: 44px; height: 44px; }
+}
+
 @media (max-width: 480px) {
-  .hero-title { font-size: 2.4rem; }
-  .hero-actions { gap: 12px; }
-  .btn { padding: 12px 22px; font-size: 0.875rem; }
+  .hero-badge { font-size: 0.72rem; padding: 7px 14px; margin-bottom: 26px; }
+  .hero-title { font-size: clamp(2rem, 10vw, 2.7rem); }
+  .hero-tagline { font-size: 1rem; }
+  .hero-actions { flex-direction: column; gap: 12px; width: 100%; }
+  .hero-actions .btn { width: 100%; justify-content: center; }
+  .btn { padding: 13px 22px; font-size: 0.9rem; }
 
   .nav-mobile-link { font-size: 1.2rem; padding: 16px 20px; }
+
+  .about-stats { gap: 10px; }
+  .stat-card { padding: 16px 12px; }
+  .stat-number { font-size: 1.5rem; }
+
+  .skill-tile { padding: 18px 10px; gap: 11px; }
+  .skill-logo { width: 30px; height: 30px; }
+
+  .project-card { padding: 24px 20px; }
+  .contact-link { flex: 1 1 calc(50% - 5px); }
+}
+
+/* ─── REDUCED MOTION ─────────────────────────────────────────── */
+/* Honour the OS-level "reduce motion" preference: no parallax,
+   particles, looping ambient animation, or transition theatrics. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  body { cursor: auto !important; }
+  #cursor-dot, #cursor-ring { display: none !important; }
+  .ambient-orb, .particle { display: none !important; }
+  .hero-scroll-hint { display: none; }
+  /* Never leave content hidden behind a never-triggered reveal */
+  .reveal, .reveal-left, .reveal-right { opacity: 1 !important; transform: none !important; }
 }
