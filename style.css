@@ -1735,15 +1735,17 @@ footer .reveal.visible {
   .project-desc { font-size: 0.9rem; }
 
   /* Drop the rail + dots on mobile; stack clean full-width cards.
-     !important guards against any higher-specificity desktop rule so the
-     rail/dots are unconditionally hidden and the left indent is removed. */
-  .timeline { padding-left: 0 !important; }
-  .timeline::before { display: none !important; }
-  .timeline-dot { display: none !important; }
-  .timeline-item { padding-bottom: 16px; padding-left: 0 !important; }
-  .timeline-item:last-child { padding-bottom: 0; }
-  .timeline-card { padding: 22px 22px; width: 100%; }
-  .timeline-heading { padding-left: 0 !important; }
+     Scoped to #experience so specificity is (1,1,x), which outranks the
+     base .timeline rules (0,1,x) on its own — no !important needed.
+     This hides the ::before rail AND the dots, and zeroes the left
+     padding on the container, items, and section headings (the indent). */
+  #experience .timeline { padding-left: 0; }
+  #experience .timeline::before { display: none; }       /* vertical rail */
+  #experience .timeline-dot { display: none; }            /* dot markers */
+  #experience .timeline-item { padding-bottom: 16px; padding-left: 0; }
+  #experience .timeline-item:last-child { padding-bottom: 0; }
+  #experience .timeline-card { padding: 22px 22px; width: 100%; }
+  #experience .timeline-heading { padding-left: 0; }
 
   .contact-card { padding: 40px 24px; }
   .contact-links { gap: 10px; }
@@ -1762,13 +1764,14 @@ footer .reveal.visible {
   .project-github { width: 44px; height: 44px; }
 
   /* Defense-in-depth: drop the timeline rail + dots on ANY touch device,
-     independent of the width breakpoint. Touchscreen laptops keep the
-     rail (their mouse reports hover:hover, so this query won't match). */
-  .timeline { padding-left: 0 !important; }
-  .timeline::before { display: none !important; }
-  .timeline-dot { display: none !important; }
-  .timeline-item { padding-left: 0 !important; }
-  .timeline-heading { padding-left: 0 !important; }
+     independent of the width breakpoint. #experience scoping outranks the
+     base rules without !important. Touchscreen laptops keep the rail
+     (their mouse reports hover:hover, so this query won't match). */
+  #experience .timeline { padding-left: 0; }
+  #experience .timeline::before { display: none; }
+  #experience .timeline-dot { display: none; }
+  #experience .timeline-item { padding-left: 0; }
+  #experience .timeline-heading { padding-left: 0; }
 }
 
 @media (max-width: 480px) {
