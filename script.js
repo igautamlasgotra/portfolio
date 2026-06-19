@@ -37,7 +37,7 @@ document.addEventListener('mouseleave',() => { cursorDot.style.opacity = '0'; cu
 document.addEventListener('mouseenter',() => { cursorDot.style.opacity = '1'; cursorRing.style.opacity = '1'; });
 
 // Expand cursor on interactive elements
-const interactiveEls = document.querySelectorAll('a, button, .btn, .skill-chip, .project-card, .timeline-card, .stat-card, .contact-link');
+const interactiveEls = document.querySelectorAll('a, button, .btn, .skill-tile, .project-card, .timeline-card, .stat-card, .contact-link');
 interactiveEls.forEach(el => {
   el.addEventListener('mouseenter', () => cursorRing.classList.add('expanded'));
   el.addEventListener('mouseleave', () => cursorRing.classList.remove('expanded'));
@@ -255,9 +255,12 @@ const statsObserver = new IntersectionObserver((entries) => {
 const statsGrid = document.querySelector('.about-stats');
 if (statsGrid) statsObserver.observe(statsGrid);
 
-// ─── Skill Chip Stagger ───────────────────────────────────────
-document.querySelectorAll('.skill-chip').forEach((chip, i) => {
-  chip.style.transitionDelay = (i * 0.04) + 's';
+// ─── Skill Tile Stagger ───────────────────────────────────────
+// Stagger reveal within each category group so tiles cascade in.
+document.querySelectorAll('.skill-group').forEach(group => {
+  group.querySelectorAll('.skill-tile').forEach((tile, i) => {
+    tile.style.transitionDelay = (i * 0.05) + 's';
+  });
 });
 
 // ─── Cursor glow on hero ──────────────────────────────────────
