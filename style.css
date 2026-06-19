@@ -64,16 +64,6 @@ body {
   line-height: 1.6;
 }
 
-/* The custom cursor exists wherever a real pointing device is present.
-   `any-pointer: fine` matches any attached mouse/trackpad (including on
-   touchscreen laptops, whose PRIMARY pointer may report as coarse), so
-   the native cursor is hidden and the rings shown there; pure-touch
-   devices keep their normal cursor/behaviour. */
-@media (any-pointer: fine) {
-  body { cursor: none; }
-  #cursor-dot, #cursor-ring { display: block; }
-}
-
 ::selection {
   background: rgba(124, 58, 237, 0.3);
   color: var(--text-primary);
@@ -122,6 +112,19 @@ img { max-width: 100%; display: block; }
 
 #cursor-ring.clicked {
   transform: translate(-50%, -50%) scale(0.85);
+}
+
+/* Enable the custom cursor ONLY where a real pointing device exists.
+   This block MUST come AFTER the #cursor-dot/#cursor-ring `display:none`
+   defaults above: media queries don't raise specificity, so at equal
+   specificity the later rule wins. While it sat BEFORE those defaults,
+   the later `display:none` overrode this `display:block` and the cursor
+   never appeared on desktop — that was the bug. `any-pointer: fine`
+   matches any attached mouse/trackpad (incl. touchscreen laptops);
+   pure-touch devices keep their native cursor. */
+@media (any-pointer: fine) {
+  body { cursor: none; }
+  #cursor-dot, #cursor-ring { display: block; }
 }
 
 /* ─── Scrollbar ────────────────────────────────────────────── */
