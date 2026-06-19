@@ -249,6 +249,9 @@ body::before {
 .nav-link.active::after { width: 60%; }
 
 .nav-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   padding: 9px 22px;
   background: rgba(124, 58, 237, 0.12);
   border: 1px solid rgba(124, 58, 237, 0.3);
@@ -259,6 +262,17 @@ body::before {
   transition: all var(--transition-fast);
   letter-spacing: -0.01em;
 }
+
+/* External-link arrow (replaces the old ↗ glyph) */
+.ext-arrow {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+  transition: transform var(--transition-fast);
+}
+.nav-cta:hover .ext-arrow,
+.nav-mobile-resume:hover .ext-arrow { transform: translate(2px, -2px); }
+.nav-mobile-resume { gap: 8px; }
 
 .nav-cta:hover {
   background: rgba(124, 58, 237, 0.22);
