@@ -1074,7 +1074,7 @@ section {
 
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+  grid-template-columns: 1fr;
   gap: 24px;
 }
 
@@ -1121,38 +1121,102 @@ section {
 .project-card:hover::before { opacity: 1; }
 .project-card:hover::after { opacity: 1; }
 
+/* Top line: project number + optional flagship badge */
+.project-topline {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+}
+
 .project-number {
   font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--text-tertiary);
-  margin-bottom: 20px;
-  position: relative;
-  z-index: 1;
 }
 
+.project-flagship {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 11px;
+  border-radius: 50px;
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #c4b5fd;
+  background: rgba(124, 58, 237, 0.14);
+  border: 1px solid rgba(124, 58, 237, 0.35);
+}
+
+/* Clickable GitHub icon — top-right of each card */
+.project-github {
+  position: absolute;
+  top: 28px;
+  right: 28px;
+  width: 42px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-glass);
+  z-index: 3;
+  transition: color var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+}
+.project-github svg { width: 20px; height: 20px; display: block; }
+.project-github:hover {
+  color: var(--text-primary);
+  background: rgba(124, 58, 237, 0.16);
+  border-color: rgba(124, 58, 237, 0.4);
+  transform: translateY(-2px);
+}
+.project-github:active { transform: translateY(0) scale(0.95); }
+
 .project-icon {
-  width: 52px;
-  height: 52px;
+  width: 56px;
+  height: 56px;
   background: rgba(124,58,237,0.1);
   border: 1px solid rgba(124,58,237,0.2);
-  border-radius: 14px;
+  border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.4rem;
+  color: rgba(245, 245, 247, 0.9);
   margin-bottom: 24px;
   position: relative;
   z-index: 1;
-  transition: all var(--transition-smooth);
+  transition: background var(--transition-smooth), border-color var(--transition-smooth), transform var(--transition-smooth), color var(--transition-smooth);
 }
+.project-icon svg { width: 28px; height: 28px; display: block; }
 
 .project-card:hover .project-icon {
   background: rgba(124,58,237,0.2);
   border-color: rgba(124,58,237,0.4);
-  transform: scale(1.1);
+  transform: scale(1.08);
 }
+
+/* Featured flagship card — visual hero of the section */
+.project-card.is-featured {
+  border-color: rgba(124, 58, 237, 0.28);
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.07), rgba(37, 99, 235, 0.035));
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35), 0 0 40px rgba(124, 58, 237, 0.06);
+}
+.project-card.is-featured::after { opacity: 1; }
+.project-card.is-featured .project-title { font-size: 1.85rem; }
+.project-card.is-featured .project-icon {
+  width: 64px;
+  height: 64px;
+  background: rgba(124, 58, 237, 0.18);
+  border-color: rgba(124, 58, 237, 0.35);
+}
+.project-card.is-featured .project-icon svg { width: 32px; height: 32px; }
 
 .project-title {
   font-size: 1.5rem;
