@@ -244,6 +244,35 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
   });
 });
 
+// ─── Hero Tagline Typing Effect (restored from main) ─────────
+// The headline/badge/actions reveal via CSS on load; the tagline types
+// itself out on top of that. Skipped entirely under reduced motion, so
+// the tagline simply appears in full.
+function typeWriter(el, text, speed = 30) {
+  el.textContent = '';
+  let i = 0;
+  const timer = setInterval(() => {
+    if (i < text.length) {
+      el.textContent += text[i++];
+    } else {
+      clearInterval(timer);
+    }
+  }, speed);
+}
+
+if (!reduceMotion) {
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      const tagline = document.querySelector('.hero-tagline');
+      if (tagline) {
+        const text = tagline.dataset.text || tagline.textContent;
+        tagline.dataset.text = text;
+        typeWriter(tagline, text, 30);
+      }
+    }, 900);
+  });
+}
+
 // ─── Counter Animation ────────────────────────────────────────
 function animateCounter(el, target, suffix = '', duration = 1500) {
   if (reduceMotion) { el.textContent = target + suffix; return; }
