@@ -1707,8 +1707,6 @@ footer {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-  body { cursor: auto !important; }
-  #cursor-dot, #cursor-ring { display: none !important; }
   .ambient-orb, .particle { display: none !important; }
   .hero-scroll-hint { display: none; }
   /* Never leave content hidden behind a never-triggered reveal */

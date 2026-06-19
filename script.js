@@ -6,15 +6,16 @@
 'use strict';
 
 // ─── Capability detection ────────────────────────────────────
-// Pointer-driven and ambient effects only make sense on devices
-// with a precise pointer (mouse/trackpad). Touch phones and users
-// who prefer reduced motion get a lighter, faster, calmer version.
+// The custom cursor and pointer-driven effects are gated purely on
+// INPUT CAPABILITY (a precise pointer) — never on viewport width — so
+// they run on desktop/mouse devices (even with reduced-motion on) and
+// are disabled only on touch. Genuine ambient motion (particles,
+// parallax) additionally respects the reduced-motion preference.
 const finePointer  = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const richMotion   = finePointer && !reduceMotion;
 
-// ─── Custom Cursor + pointer-driven effects (rich motion only) ─
-if (richMotion) {
+// ─── Custom cursor, magnetic buttons, glow & 3D tilt (pointer devices) ─
+if (finePointer) {
   const cursorDot  = document.getElementById('cursor-dot');
   const cursorRing = document.getElementById('cursor-ring');
 
@@ -97,7 +98,12 @@ if (richMotion) {
       heroEl.style.setProperty('--mouse-y', ((e.clientY - rect.top)  / rect.height) * 100 + '%');
     });
   }
+}
 
+// ─── Ambient motion: particles & hero parallax ───────────────
+// Genuine motion effects — disabled on touch AND when the user
+// prefers reduced motion.
+if (finePointer && !reduceMotion) {
   // ─── Floating particles ────────────────────────────────────
   const particleContainer = document.querySelector('.particles-container');
   if (particleContainer) {
