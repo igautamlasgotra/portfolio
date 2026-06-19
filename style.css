@@ -1702,13 +1702,15 @@ footer {
   .project-github { top: 20px; right: 20px; }
   .project-desc { font-size: 0.9rem; }
 
-  /* Drop the rail + dots on mobile; stack clean full-width cards */
-  .timeline { padding-left: 0; }
-  .timeline::before { display: none; }
-  .timeline-dot { display: none; }
-  .timeline-item { padding-bottom: 16px; }
+  /* Drop the rail + dots on mobile; stack clean full-width cards.
+     !important guards against any higher-specificity desktop rule so the
+     rail/dots are unconditionally hidden and the left indent is removed. */
+  .timeline { padding-left: 0 !important; }
+  .timeline::before { display: none !important; }
+  .timeline-dot { display: none !important; }
+  .timeline-item { padding-bottom: 16px; padding-left: 0 !important; }
   .timeline-item:last-child { padding-bottom: 0; }
-  .timeline-card { padding: 22px 22px; }
+  .timeline-card { padding: 22px 22px; width: 100%; }
   .timeline-heading { padding-left: 0 !important; }
 
   .contact-card { padding: 40px 24px; }
