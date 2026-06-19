@@ -1149,8 +1149,10 @@ section {
 .project-topline {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 12px;
   margin-bottom: 20px;
+  padding-right: 56px; /* clear the absolute GitHub icon */
   position: relative;
   z-index: 1;
 }
@@ -1219,6 +1221,21 @@ section {
   transition: background var(--transition-smooth), border-color var(--transition-smooth), transform var(--transition-smooth), color var(--transition-smooth);
 }
 .project-icon svg { width: 28px; height: 28px; display: block; }
+
+/* Real app brand mark (self-contained icon with its own background) */
+.project-logo {
+  width: 68px;
+  height: 68px;
+  margin-bottom: 24px;
+  border-radius: 18px;
+  object-fit: contain;
+  position: relative;
+  z-index: 1;
+  /* Lift it off the glass for clear contrast */
+  filter: drop-shadow(0 8px 22px rgba(0, 0, 0, 0.4));
+  transition: transform var(--transition-smooth);
+}
+.project-card:hover .project-logo { transform: scale(1.07); }
 
 .project-card:hover .project-icon {
   background: rgba(124,58,237,0.2);
@@ -1634,6 +1651,7 @@ footer {
   .projects-grid { gap: 18px; }
   .project-card { padding: 26px 22px; }
   .project-card.is-featured .project-title { font-size: 1.5rem; }
+  .project-logo { width: 58px; height: 58px; border-radius: 15px; margin-bottom: 20px; }
   .project-github { top: 20px; right: 20px; }
   .project-desc { font-size: 0.9rem; }
 
