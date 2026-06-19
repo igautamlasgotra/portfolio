@@ -345,7 +345,7 @@ body::before {
   position: fixed;
   inset: 0;
   top: var(--nav-height);
-  background: rgba(5, 5, 7, 0.96);
+  background: rgba(5, 5, 7, 0.72);
   backdrop-filter: blur(32px) saturate(180%);
   -webkit-backdrop-filter: blur(32px) saturate(180%);
   z-index: 998;
@@ -860,7 +860,9 @@ section {
   border-radius: var(--radius-md);
   padding: 18px;
   text-align: center;
-  transition: all var(--transition-smooth);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  transition: background var(--transition-smooth), border-color var(--transition-smooth), transform var(--transition-smooth);
 }
 
 .stat-card:hover {
@@ -1005,7 +1007,9 @@ section {
   padding: 36px;
   position: relative;
   overflow: hidden;
-  transition: all var(--transition-smooth);
+  backdrop-filter: blur(14px) saturate(150%);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+  transition: transform var(--transition-smooth), border-color var(--transition-smooth), box-shadow var(--transition-smooth);
   transform-style: preserve-3d;
   cursor: default;
 }
@@ -1207,7 +1211,9 @@ section {
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
   padding: 28px 32px;
-  transition: all var(--transition-smooth);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  transition: background var(--transition-smooth), border-color var(--transition-smooth), transform var(--transition-smooth);
 }
 
 .timeline-card:hover {

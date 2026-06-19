@@ -211,30 +211,6 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
   });
 });
 
-// ─── Typing Effect (Hero Tagline) ────────────────────────────
-function typeWriter(el, text, speed = 35) {
-  el.textContent = '';
-  let i = 0;
-  const timer = setInterval(() => {
-    if (i < text.length) {
-      el.textContent += text[i++];
-    } else {
-      clearInterval(timer);
-    }
-  }, speed);
-}
-
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    const tagline = document.querySelector('.hero-tagline');
-    if (tagline) {
-      const text = tagline.dataset.text || tagline.textContent;
-      tagline.dataset.text = text;
-      typeWriter(tagline, text, 30);
-    }
-  }, 900);
-});
-
 // ─── Parallax on Hero ─────────────────────────────────────────
 window.addEventListener('scroll', () => {
   const heroContent = document.querySelector('.hero-content');
