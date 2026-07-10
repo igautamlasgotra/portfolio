@@ -1,8 +1,8 @@
 # Gautam Lasgotra — Portfolio
 
-> Flutter app developer shipping production mobile experiences — with full-stack MERN range and a security foundation.
+> Full-stack developer who ships across mobile and web — Flutter & React up front, Node.js & Firebase behind, with a security foundation.
 
-A premium, Apple-inspired developer portfolio built as a single static page. Glassmorphism UI, brand-logo tech grid, custom cursor, and scroll-triggered motion — engineered to lead with mobile/app development while keeping full-stack and security depth visible.
+A premium, Apple-inspired developer portfolio built as a single static page. Glassmorphism UI, brand-logo tech grid, custom cursor, and scroll-triggered motion — engineered to lead with full-stack range across mobile and web while keeping security depth visible.
 
 **Live:** [igautamlasgotra.dev](https://igautamlasgotra.dev)
 
@@ -16,7 +16,7 @@ Pure **HTML5 + CSS3 + Vanilla JavaScript** — zero dependencies, zero framework
 - **Apple-style typography** — Inter with tight tracking and heavy headings against regular-weight, generously-led body text.
 - **Hero type-in** — the lead tagline types itself in on load (no flash of static text), then a dimmer supporting line fades in; both appear instantly under reduced motion.
 - **Brand-logo tech grid** — a **Mobile** group leads (Flutter as a prominent anchor tile), followed by Languages / Web / Databases & Backend / Developer Tools. Logos sit neutral and animate to their brand colour on hover; the core mobile stack (Flutter, Dart, Firebase, Android Studio) is marked with an accent dot.
-- **Flagship project tile** — Shramik (Flutter/Firebase) leads as the visual hero with its real app logo; each card has a hover-reactive GitHub repo icon.
+- **Flagship project tile** — LEAD Sangam (Flutter + Firebase + Cloud Functions) leads as the visual hero with its real app logo; project cards link out to live sites and, where public, GitHub repos.
 - **Custom glowing cursor** — dual-ring magnetic cursor, enabled on any device with a real pointer (`any-pointer: fine`, so it works on touchscreen laptops too) and disabled on pure-touch devices.
 - **Scroll-triggered reveals**, **3D tilt cards**, **hero parallax**, and **animated stat counters**.
 - **Apple-style mobile menu** — glass icon button animating three lines → X, with a staggered overlay.
@@ -50,9 +50,9 @@ Every push to `main` triggers an automatic build and deploy. The custom `.dev` d
 
 - **Hero** — app-developer positioning with particle/parallax background
 - **About** — mobile-first narrative, profile, and animated stats
-- **Skills** — Mobile-first brand-logo toolkit (Flutter anchor) with the core mobile stack accent-marked
-- **Projects** — Shramik (flagship Flutter app) and CampusCrate (MERN)
-- **Experience & Education** — IIT Jammu & CDAC Noida internships, SMVDU B.Tech
+- **Skills** — brand-logo toolkit spanning Flutter, React, Node.js, Firebase, Cloud Functions and more, with the core mobile stack accent-marked
+- **Projects** — LEAD Sangam (flagship full-stack platform) and Shramik (Flutter app)
+- **Experience & Education** — LEAD, IIT Jammu & CDAC Noida internships, SMVDU B.Tech
 - **Contact** — GitHub, LinkedIn, WhatsApp, email, and resume download
 
 ---
